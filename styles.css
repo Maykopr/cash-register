@@ -1,0 +1,197 @@
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	text-decoration: none;
+}
+
+:root {
+	/* UNIQUE VARIABLES ==> Some variables unique for this project */
+
+	--font-family1: "Poppins", sans-serif;
+	--font-family2: "Lexend Deca", sans-serif;
+
+	/* COLORS  */
+	--light: hsl(20, 10%, 100%);
+	--dark: hsl(0, 10%, 0%);
+
+	--neutral: hsl(200, 0%, 65%);
+	--neutral-lighter: hsl(20, 10%, 92%);
+	--neutral-darker: hsl(200, 0%, 25%);
+
+	--primary: hsl(192, 70%, 43%);
+	--primary-darker: hsl(192, 70%, 37%);
+	--primary-lighter: hsl(192, 70%, 53%);
+
+	--secondary: hsl(224, 70%, 73%);
+	--secondary-darker: hsl(224, 70%, 67%);
+	--secondary-lighter: hsl(224, 70%, 85%);
+
+	--tertiary: hsl(43, 100%, 51%);
+	--tertiary-darker: hsl(43, 100%, 41%);
+	--tertiary-lighter: hsl(43, 100%, 61%);
+
+	--success: hsl(100, 100%, 70%);
+	--warning: hsl(50, 100%, 70%);
+	--danger: hsl(0, 100%, 70%);
+
+	/* SIZES BASED ON VIEWPORT */
+
+	/* DIMENTIONS  */
+
+	--width: clamp(250px, 90vw, 380px);
+	--height: clamp(440px, 90vh, 672px);
+	--ratio1: 1;
+	--ratio2w: 4/3;
+	--ratio3w: 16/9;
+	--ratio4w: 21/9;
+	--ratio2h: 3/4;
+	--ratio3h: 9/16;
+	--ratio4h: 9/21;
+
+	/* SPACES  */
+	--space-xs: clamp(0.25rem, 0.1968rem + 0.2299vw, 0.375rem);
+	--space-s: clamp(0.5rem, 0.3937rem + 0.4598vw, 0.75rem);
+	--space-m: clamp(0.75rem, 0.5905rem + 0.6897vw, 1.125rem);
+	--space-l: clamp(1rem, 0.7874rem + 0.9195vw, 1.5rem);
+	--space-xl: clamp(2rem, 1.5747rem + 1.8391vw, 3rem);
+
+	/* FONT  */
+
+	--fs-fixed-xs: 0.5em;
+	--fs-fixed-s: 0.75rem;
+	--fs-fixed-m: 1rem;
+	--fs-fixed-l: 1.5rem;
+	--fs-fixed-xl: 2.25rem;
+	--fs-fixed-xxl: 3rem;
+
+	/* responsive font sizes @link https://utopia.fyi */
+
+	--fs-responsive-xs: max(clamp(0.4rem, 0.6rem + -0.13vw, 0.6rem), clamp(0.4rem, 0.6rem + -0.13vh, 0.6rem));
+	--fs-responsive-s: max(clamp(0.7rem, 0.8rem + -0.05vw, 0.8rem), clamp(0.7rem, 0.8rem + -0.05vh, 0.8rem));
+	--fs-responsive-m: max(clamp(1rem, 0.9rem + 0.2vw, 1.2rem), clamp(1rem, 0.9rem + 0.2vh, 1.2rem));
+	--fs-responsive-l: max(clamp(1.3rem, 1.1rem + 0.6vw, 1.8rem), clamp(1.3rem, 1.1rem + 0.6vh, 1.8rem));
+	--fs-responsive-xl: max(clamp(1.5rem, 1.2rem + 1.4vw, 2.9rem), clamp(1.5rem, 1.2rem + 1.4vh, 2.9rem));
+	--fs-responsive-xxl: max(clamp(2rem, 1.3rem + 2.7vw, 4.7rem), clamp(2rem, 1.3rem + 2.7vh, 4.7rem));
+
+	/* SIZES BASED ON CONTAINER => container-type:inline-size; */
+
+	/* DIMENTIONS  */
+
+	/* SPACES  */
+	--sp-container-xs: clamp(0.25rem, 0.1968rem + 0.2299vw, 0.375rem);
+	--sp-container-s: clamp(0.5rem, 0.3937rem + 0.4598vw, 0.75rem);
+	--sp-container-m: clamp(0.75rem, 0.5905rem + 0.6897vw, 1.125rem);
+	--sp-container-l: clamp(1rem, 0.7874rem + 0.9195vw, 1.5rem);
+	--sp-container-xl: clamp(2rem, 1.5747rem + 1.8391vw, 3rem);
+
+	--fs-container-xs: 2cqw;
+	--fs-container-s: 3cqw;
+	--fs-container-m: 4cqw;
+	--fs-container-l: 6cqw;
+	--fs-container-xl: 16cqw;
+
+	/* FONT CONFIG  */
+	font-family: var(--font-family1);
+	font-weight: 300;
+	font-optical-sizing: auto;
+}
+
+body {
+	background-color: var(--primary-lighter);
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--dark);
+	font-family: verdana, sans-serif;
+}
+
+.app {
+	box-shadow: 4px 4px 10px var(--neutral-darker);
+	container-type: inline-size;
+	width: var(--width);
+	aspect-ratio: var(--ratio2h);
+	background-color: var(--neutral-lighter);
+	padding: var(--sp-container-m);
+	border-radius: var(--sp-container-xs);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--sp-container-s);
+}
+
+.app__title {
+	color: var(--primary);
+	text-align: center;
+	font-size: var(--fs-container-l);
+}
+
+.app__form {
+	width: 100%;
+	display: flex;
+	gap: var(--sp-container-xs);
+}
+.app__input {
+	flex: 3;
+	padding: var(--sp-container-s);
+	border: none;
+	border-radius: var(--sp-container-xs);
+}
+
+.app__button {
+	flex: 1;
+	background-color: var(--primary);
+	color: var(--light);
+	border: none;
+	border-radius: var(--sp-container-xs);
+	cursor: pointer;
+}
+
+.app__price {
+	padding: var(--sp-container-s);
+	width: fit-content;
+	background-color: var(--neutral-darker);
+	color: var(--tertiary);
+	border-radius: var(--sp-container-xs);
+	font-weight: bold;
+	font-size: var(--fs-container-l);
+	text-align: center;
+}
+
+.app__change {
+	flex: 1;
+	padding: var(--sp-container-s);
+	width: 100%;
+	background-color: var(--light);
+	border-radius: var(--sp-container-xs);
+	font-size: var(--fs-container-m);
+}
+
+.app__status {
+	font-weight: bold;
+	font-size: var(--fs-container-m);
+	margin-bottom: var(--sp-container-xs);
+}
+
+.app__drawer {
+	font-size: var(--fs-container-m);
+	border-radius: var(--sp-container-xs);
+	flex: 1;
+	padding: var(--sp-container-s);
+	width: 100%;
+	background-color: var(--light);
+}
+
+.drawer__title {
+	font-weight: bold;
+	margin-bottom: var(--sp-container-xs);
+}
+
+@media screen and (hover: hover) {
+	.app__button:hover {
+		background-color: var(--primary-darker);
+	}
+}

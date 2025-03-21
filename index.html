@@ -1,0 +1,22 @@
+<DOCTYPE html />
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta charset="UTF-8" />
+		<link rel="stylesheet" href="styles.css" />
+		<script src="script.js" defer></script>
+		<title>Cash Register</title>
+	</head>
+	<body>
+		<div class="app">
+			<h1 class="app__title">Cash Register Project</h1>
+			<form class="app__form">
+				<input class="app__input" type="number" step="0.01" id="cash" placeholder="Enter cash from customer" />
+				<button class="app__button" type="button" id="purchase-btn">Purchase</button>
+			</form>
+			<div class="app__price">Price: $<span id="price"></span></div>
+			<div class="app__change" id="change-due"></div>
+			<div class="app__drawer" id="cid-display"></div>
+		</div>
+	</body>
+</html>
