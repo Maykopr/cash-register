@@ -4,7 +4,7 @@ const purchaseBtn = document.getElementById("purchase-btn");
 const cidDisplay = document.getElementById("cid-display");
 const priceDisplay = document.getElementById("price");
 
-let price = 3.26;
+const price = 3.26;
 let cid = [
 	["PENNY", 1.01],
 	["NICKEL", 2.05],
@@ -29,37 +29,48 @@ const cidCurrency = {
 	"ONE HUNDRED": 100,
 };
 
+function addCurrencyToCid() {
+	const cidWithCurrency = cid.map((currency) => [...currency, cidCurrency[currency[0]]]);
+	return cidWithCurrency;
+}
+
+function getTotalFunds() {
+	return +cid.reduce((acc, val) => acc + val[1], 0);
+}
+
 function resolveExtenge() {
-	let cidWithCurrency = cid.map((curr) => [...curr, cidCurrency[curr[0]]]).reverse();
+	const cidWithCurrencyReversed = addCurrencyToCid().reverse();
 	let changeDue = parseFloat((cashInput.value - price).toFixed(2));
-	let totalFunds = parseFloat(cidWithCurrency.reduce((acc, val) => acc + val[1], 0).toFixed(2));
+	let totalFunds = getTotalFunds();
+
 	if (totalFunds < changeDue) {
 		return (displayChangeDue.innerHTML = '<p class="status">Status: INSUFFICIENT_FUNDS</p>');
 	}
-	let result = "";
-	cidWithCurrency.forEach((curr) => {
-		const currency = curr[2];
-		let originalValue = curr[1];
-		if (changeDue >= currency && curr[1] > 0) {
-			while (changeDue >= currency && curr[1] > 0) {
-				changeDue = parseFloat((changeDue - currency).toFixed(2));
-				curr[1] = parseFloat((curr[1] - currency).toFixed(2));
+
+	let cidToDisplay = "";
+
+	cidWithCurrencyReversed.forEach(([currencyName, amount, currencyValue]) => {
+		const originalAmount = amount;
+		if (changeDue >= currencyValue && amount > 0) {
+			while (changeDue >= currencyValue && amount > 0) {
+				changeDue = parseFloat((changeDue - currencyValue).toFixed(2));
+				amount = parseFloat((amount - currencyValue).toFixed(2));
 			}
-			result += "<p>" + curr[0] + ": $" + parseFloat((originalValue - curr[1]).toFixed(2)) + "</p>";
+			cidToDisplay += `<p>${currencyName}: ${parseFloat((originalAmount - amount).toFixed(2))}</p>`;
 		}
 	});
-	totalFunds = parseFloat(cidWithCurrency.reduce((acc, val) => acc + val[1], 0).toFixed(2));
 
-	cid = cidWithCurrency.map((curr) => [curr[0], curr[1]]).reverse();
+	cid = cidWithCurrencyReversed.map((curr) => [curr[0], curr[1]]).reverse();
+	totalFunds = getTotalFunds();
+
 	if (changeDue > 0) {
 		return (displayChangeDue.innerHTML = '<p class="app__status">Status: INSUFFICIENT_FUNDS</p>');
-	} else if (totalFunds === 0) {
-		displayCid(cidWithCurrency);
-		return (displayChangeDue.innerHTML = `<p class="app__status">Status: CLOSED </p><p>${result}</p>`);
-	} else {
-		displayCid(cidWithCurrency);
-		return (displayChangeDue.innerHTML = `<p class="app__status">Status: OPEN <p>${result}</p>`);
 	}
+	displayCid(cidWithCurrencyReversed);
+	if (totalFunds === 0) {
+		return (displayChangeDue.innerHTML = `<p class="app__status">Status: CLOSED </p><p>${cidToDisplay}</p>`);
+	}
+	displayChangeDue.innerHTML = `<p class="app__status">Status: OPEN <p>${cidToDisplay}</p>`;
 }
 
 function displayCid(arr) {
@@ -68,11 +79,13 @@ function displayCid(arr) {
 }
 
 function main() {
-	if (cashInput.value < price) {
+	const cash = +cashInput.value;
+	if (cash < price) {
 		alert("Customer does not have enough money to purchase the item");
 		cashInput.value = "";
 		return;
-	} else if (parseFloat(cashInput.value) === price) {
+	}
+	if (cash === price) {
 		displayChangeDue.innerHTML = "<p class='status'>No change due - customer paid with exact cash</p>";
 		cashInput.value = "";
 		return;
@@ -85,3 +98,9 @@ function main() {
 priceDisplay.textContent = price;
 displayCid(cid);
 purchaseBtn.addEventListener("click", main);
+
+cashInput.addEventListener("keyup", (event) => {
+	if (event.key === "Enter") {
+		main();
+	}
+});
